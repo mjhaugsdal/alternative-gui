@@ -9,30 +9,22 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    steps:
+  steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: '16'
 
       - name: Install dependencies
         run: npm install
 
       - name: Build project
         run: npm run build
-        
-      - name: Configure Git user
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-         
-      - name: Deploy to GitHub Pages
-        run: npm run deploy
 
-      - name: Commit the 'gh-pages' branch
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
