@@ -1,70 +1,63 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Glimts alternative
+Nettsiden til **Glimts alternative** – en alternativ supporterklubb for fotballklubben Bodø/Glimt.
+Live: <https://www.glimtsalternative.no>
+## Om prosjektet
+Dette er en enkel, statisk nettside (HTML / CSS / vanilla JS) – ingen byggesteg, ingen rammeverk. Siden serveres via **GitHub Pages** og deployes automatisk gjennom **GitHub Actions** ved push til `main`.
+Sidene/seksjonene er:
+- **Hjem** – hero med logo og kortfattet intro
+- **Info** – hvem vi er / hva vi gjør / bli medlem
+- **Bilder** – galleri (foreløpig placeholders)
+- **Butikk** – effekter (kommer)
+- **Kontakt** – e-post, sosiale medier og kontaktskjema
+Designet er svart/gult, responsivt, og har sticky toppmeny med smooth scroll.
+## Filstruktur
+```
+.
+├── index.html           # Hele siden (en-sides layout med ankrede seksjoner)
+├── styles.css           # Stiler (svart/gul tema)
+├── script.js            # Mobilmeny, aktiv-lenke, fade-in
+├── assets/
+│   └── ga.jpg           # Klubblogo
+├── CNAME                # Custom domain for GitHub Pages
+└── .github/workflows/
+    └── deploy.yml       # GitHub Actions -> GitHub Pages
+```
+## Kjør lokalt
+Du trenger kun en filserver – f.eks.:
+```bash
+# Python 3
+python -m http.server 8000
+```
+```bash
+# Node
+npx serve .
+```
+Åpne deretter <http://localhost:8000>.
+## Deploy
+Pushes til `main` trigger workflowen i `.github/workflows/deploy.yml`, som laster opp hele repoet som en Pages-artefakt og publiserer.
+### Engangsoppsett i GitHub
+1. Gå til **Settings → Pages** i repoet.
+2. Under **Build and deployment → Source**, velg **GitHub Actions**.
+3. Første push til `main` (eller manuell kjøring av workflowen) publiserer siden.
+### Custom domain (`glimtsalternative.no`)
+Filen `CNAME` i repo-roten er satt til `www.glimtsalternative.no`. Hos Webhuset må du i tillegg sette opp DNS:
+| Type    | Navn  | Verdi                              |
+| ------- | ----- | ---------------------------------- |
+| `CNAME` | `www` | `<din-github-bruker>.github.io.`   |
+| `A`     | `@`   | `185.199.108.153`                  |
+| `A`     | `@`   | `185.199.109.153`                  |
+| `A`     | `@`   | `185.199.110.153`                  |
+| `A`     | `@`   | `185.199.111.153`                  |
+| `AAAA`  | `@`   | `2606:50c0:8000::153`              |
+| `AAAA`  | `@`   | `2606:50c0:8001::153`              |
+| `AAAA`  | `@`   | `2606:50c0:8002::153`              |
+| `AAAA`  | `@`   | `2606:50c0:8003::153`              |
+A/AAAA-recordene på apex (`@`) sørger for at `glimtsalternative.no` videresendes til `www.glimtsalternative.no` – GitHub Pages håndterer redirecten automatisk så lenge custom domain er satt til `www`-varianten.
+Etter at DNS har propagert, gå til **Settings → Pages** og kryss av **Enforce HTTPS**.
+## TODO / innhold som mangler
+- Bytt ut placeholder-rutene i galleriet med ekte bilder (legg dem i `assets/` og oppdater `<figure class="gallery-item">` i `index.html`).
+- Fyll inn ekte e-post i `index.html` (søk på `post@glimtsalternative.no`).
+- Lenke ekte sosiale medier under `#kontakt`.
+- Legg inn ekte produkter under `#butikk` eller koble mot en ekstern butikk.
+## Lisens
+Innholdet (tekst, logo) tilhører Glimts alternative. Koden er fri å gjenbruke.
