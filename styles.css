@@ -78,17 +78,17 @@ a:hover {
 }
 
 .brand img {
-  height: 36px;
+  height: 56px;
   width: auto;
-  max-width: 220px;
+  max-width: 280px;
   object-fit: contain;
   display: block;
 }
 
 @media (max-width: 480px) {
   .brand img {
-    height: 30px;
-    max-width: 170px;
+    height: 44px;
+    max-width: 200px;
   }
 }
 
