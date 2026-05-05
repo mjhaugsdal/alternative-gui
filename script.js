@@ -61,3 +61,73 @@ const revealObserver = new IntersectionObserver(
 
 revealEls.forEach((el) => revealObserver.observe(el));
 
+// ---------- Lightbox for galleri ----------
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = lightbox.querySelector(".lightbox-image");
+const btnClose = lightbox.querySelector(".lightbox-close");
+const btnPrev = lightbox.querySelector(".lightbox-prev");
+const btnNext = lightbox.querySelector(".lightbox-next");
+const galleryImages = Array.from(
+  document.querySelectorAll(".gallery .gallery-item img")
+);
+let currentIndex = 0;
+let lastFocused = null;
+
+function openLightbox(index) {
+  currentIndex = index;
+  showImage(currentIndex);
+  lastFocused = document.activeElement;
+  lightbox.hidden = false;
+  document.body.style.overflow = "hidden";
+  btnClose.focus();
+}
+
+function closeLightbox() {
+  lightbox.hidden = true;
+  document.body.style.overflow = "";
+  if (lastFocused) lastFocused.focus();
+}
+
+function showImage(index) {
+  const img = galleryImages[index];
+  if (!img) return;
+  lightboxImg.src = img.currentSrc || img.src;
+  lightboxImg.alt = img.alt || "";
+}
+
+function navigate(delta) {
+  currentIndex =
+    (currentIndex + delta + galleryImages.length) % galleryImages.length;
+  showImage(currentIndex);
+}
+
+galleryImages.forEach((img, i) => {
+  img.addEventListener("click", () => openLightbox(i));
+  img.setAttribute("tabindex", "0");
+  img.setAttribute("role", "button");
+  img.setAttribute("aria-label", "Åpne bilde i full størrelse");
+  img.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      openLightbox(i);
+    }
+  });
+});
+
+btnClose.addEventListener("click", closeLightbox);
+btnPrev.addEventListener("click", () => navigate(-1));
+btnNext.addEventListener("click", () => navigate(1));
+lightboxImg.addEventListener("click", closeLightbox);
+
+// Klikk på backdrop (utenfor bilde/knapper) lukker
+lightbox.addEventListener("click", (e) => {
+  if (e.target === lightbox) closeLightbox();
+});
+
+document.addEventListener("keydown", (e) => {
+  if (lightbox.hidden) return;
+  if (e.key === "Escape") closeLightbox();
+  else if (e.key === "ArrowLeft") navigate(-1);
+  else if (e.key === "ArrowRight") navigate(1);
+});
+

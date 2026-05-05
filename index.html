@@ -6,9 +6,9 @@
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
-      content="Glimts alternative – alternativ supporterklubb for Bodø/Glimt. Info, bilder, butikk og kontakt."
+      content="Glimts Alternative – alternativ supporterklubb for Bodø/Glimt. Info, bilder, butikk og kontakt."
     />
-    <meta property="og:title" content="Glimts alternative" />
+    <meta property="og:title" content="Glimts Alternative" />
     <meta
       property="og:description"
       content="Alternativ supporterklubb for Bodø/Glimt."
@@ -24,14 +24,16 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <title>Glimts alternative</title>
+    <title>Glimts Alternative</title>
   </head>
   <body>
     <header class="site-header" id="top">
       <nav class="nav" aria-label="Hovedmeny">
-        <a href="#top" class="brand" aria-label="Til toppen">
-          <img src="assets/Logoikon_transparent.png" alt="Glimts alternative-logo" />
-          <span>Glimts alternative</span>
+        <a href="#top" class="brand" aria-label="Glimts Alternative – til toppen">
+          <img
+            src="assets/Logotekst_transparent.png"
+            alt="Glimts Alternative"
+          />
         </a>
         <button
           class="nav-toggle"
@@ -57,9 +59,9 @@
           <img
             class="hero-logo"
             src="assets/Logo_transparent.png"
-            alt="Glimts alternative"
+            alt="Glimts Alternative"
           />
-          <h1 class="visually-hidden">Glimts alternative</h1>
+          <h1 class="visually-hidden">Glimts Alternative</h1>
           <p class="tagline">
             Den alternative supporterklubben for Bodø/Glimt.
           </p>
@@ -79,7 +81,7 @@
         <div class="container">
           <h2>Info</h2>
           <p class="lead">
-            Glimts alternative er en uavhengig supporterklubb for Bodø/Glimt –
+            Glimts Alternative er en uavhengig supporterklubb for Bodø/Glimt –
             for oss som hyller laget på vår egen måte.
           </p>
           <div class="cards">
@@ -116,7 +118,7 @@
             <figure class="gallery-item">
               <img
                 src="assets/447651425_1829671350874430_1467303119464540665_n.jpg"
-                alt="Stemning fra Glimts alternative"
+                alt="Stemning fra Glimts Alternative"
                 loading="lazy"
                 decoding="async"
               />
@@ -124,7 +126,7 @@
             <figure class="gallery-item">
               <img
                 src="assets/441951532_806912498047894_8737189779798354949_n.jpg"
-                alt="Stemning fra Glimts alternative"
+                alt="Stemning fra Glimts Alternative"
                 loading="lazy"
                 decoding="async"
               />
@@ -132,7 +134,7 @@
             <figure class="gallery-item">
               <img
                 src="assets/02fff9ce-6424-4c43-b4f3-09be8b7c2473.jpeg"
-                alt="Stemning fra Glimts alternative"
+                alt="Stemning fra Glimts Alternative"
                 loading="lazy"
                 decoding="async"
               />
@@ -140,7 +142,7 @@
             <figure class="gallery-item">
               <img
                 src="assets/57e91bdd-637e-4dd9-ae33-0e1697f97a0b.jpg"
-                alt="Stemning fra Glimts alternative"
+                alt="Stemning fra Glimts Alternative"
                 loading="lazy"
                 decoding="async"
               />
@@ -148,7 +150,7 @@
             <figure class="gallery-item">
               <img
                 src="assets/Screenshot_20240714_181530_Chrome.jpg"
-                alt="Stemning fra Glimts alternative"
+                alt="Stemning fra Glimts Alternative"
                 loading="lazy"
                 decoding="async"
               />
@@ -156,7 +158,7 @@
             <figure class="gallery-item">
               <img
                 src="assets/Screenshot_20250804_115553_Facebook.jpg"
-                alt="Stemning fra Glimts alternative – Facebook"
+                alt="Stemning fra Glimts Alternative – Facebook"
                 loading="lazy"
                 decoding="async"
               />
@@ -164,7 +166,7 @@
             <figure class="gallery-item">
               <img
                 src="assets/Screenshot_20250919_201040_Instagram.jpg"
-                alt="Stemning fra Glimts alternative – Instagram"
+                alt="Stemning fra Glimts Alternative – Instagram"
                 loading="lazy"
                 decoding="async"
               />
@@ -172,7 +174,7 @@
             <figure class="gallery-item">
               <img
                 src="assets/Screenshot_20251017_195328_Facebook.jpg"
-                alt="Stemning fra Glimts alternative – Facebook"
+                alt="Stemning fra Glimts Alternative – Facebook"
                 loading="lazy"
                 decoding="async"
               />
@@ -284,13 +286,28 @@
         <img
           class="footer-logo"
           src="assets/Logoikon_transparent.png"
-          alt="Glimts alternative"
+          alt="Glimts Alternative"
           loading="lazy"
         />
-        <p>© <span id="year"></span> Glimts alternative</p>
+        <p>© <span id="year"></span> Glimts Alternative</p>
         <p class="muted">Uavhengig supporterklubb · Ikke tilknyttet FK Bodø/Glimt</p>
       </div>
     </footer>
+
+    <!-- Lightbox for galleri -->
+    <div
+      class="lightbox"
+      id="lightbox"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Bildevisning"
+      hidden
+    >
+      <button class="lightbox-close" type="button" aria-label="Lukk">×</button>
+      <button class="lightbox-prev" type="button" aria-label="Forrige bilde">‹</button>
+      <img class="lightbox-image" alt="" />
+      <button class="lightbox-next" type="button" aria-label="Neste bilde">›</button>
+    </div>
 
     <script src="script.js"></script>
   </body>
