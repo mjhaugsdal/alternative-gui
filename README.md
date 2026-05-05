@@ -1,6 +1,6 @@
 # Glimts alternative
 Nettsiden til **Glimts alternative** – en alternativ supporterklubb for fotballklubben Bodø/Glimt.
-Live: <https://www.glimtsalternative.no>
+Live: <https://glimtsalternative.no>
 ## Om prosjektet
 Dette er en enkel, statisk nettside (HTML / CSS / vanilla JS) – ingen byggesteg, ingen rammeverk. Siden serveres via **GitHub Pages** og deployes automatisk gjennom **GitHub Actions** ved push til `main`.
 Sidene/seksjonene er:
@@ -36,24 +36,28 @@ npx serve .
 ## Deploy
 Pushes til `main` trigger workflowen i `.github/workflows/deploy.yml`, som laster opp hele repoet som en Pages-artefakt og publiserer.
 ### Engangsoppsett i GitHub
-1. Gå til **Settings → Pages** i repoet.
-2. Under **Build and deployment → Source**, velg **GitHub Actions**.
-3. Første push til `main` (eller manuell kjøring av workflowen) publiserer siden.
-### Custom domain (`glimtsalternative.no`)
-Filen `CNAME` i repo-roten er satt til `www.glimtsalternative.no`. Hos Webhuset må du i tillegg sette opp DNS:
-| Type    | Navn  | Verdi                              |
-| ------- | ----- | ---------------------------------- |
-| `CNAME` | `www` | `<din-github-bruker>.github.io.`   |
-| `A`     | `@`   | `185.199.108.153`                  |
-| `A`     | `@`   | `185.199.109.153`                  |
-| `A`     | `@`   | `185.199.110.153`                  |
-| `A`     | `@`   | `185.199.111.153`                  |
-| `AAAA`  | `@`   | `2606:50c0:8000::153`              |
-| `AAAA`  | `@`   | `2606:50c0:8001::153`              |
-| `AAAA`  | `@`   | `2606:50c0:8002::153`              |
-| `AAAA`  | `@`   | `2606:50c0:8003::153`              |
-A/AAAA-recordene på apex (`@`) sørger for at `glimtsalternative.no` videresendes til `www.glimtsalternative.no` – GitHub Pages håndterer redirecten automatisk så lenge custom domain er satt til `www`-varianten.
-Etter at DNS har propagert, gå til **Settings → Pages** og kryss av **Enforce HTTPS**.
+1. Push commit til `main` minst én gang (workflowen laster opp Pages-artefakten).
+2. Gå til **Settings → Pages** i repoet.
+3. Under **Build and deployment → Source**, velg **GitHub Actions**.
+4. Under **Custom domain**, skriv inn `glimtsalternative.no` og lagre.
+5. Vent til **DNS check** blir grnn (kan ta noen minutter etter at DNS er satt opp).
+6. Kryss av **Enforce HTTPS** når sertifikatet er klart.
+### DNS hos Webhuset
+Filen `CNAME` i repo-roten er satt til `glimtsalternative.no` (apex/uten www).
+Sett opp følgende DNS-records hos Webhuset. `Oppføring` lar du **stå blank** for apex-domenet (`@`):
+| #   | Type    | Oppføring | Mål                              |
+| --- | ------- | --------- | --------------------------------- |
+| 1   | `A`     | *(blank)* | `185.199.108.153`                 |
+| 2   | `A`     | *(blank)* | `185.199.109.153`                 |
+| 3   | `A`     | *(blank)* | `185.199.110.153`                 |
+| 4   | `A`     | *(blank)* | `185.199.111.153`                 |
+| 5   | `AAAA`  | *(blank)* | `2606:50c0:8000::153`             |
+| 6   | `AAAA`  | *(blank)* | `2606:50c0:8001::153`             |
+| 7   | `AAAA`  | *(blank)* | `2606:50c0:8002::153`             |
+| 8   | `AAAA`  | *(blank)* | `2606:50c0:8003::153`             |
+| 9   | `CNAME` | `www`     | `<din-github-bruker>.github.io.`  |
+Record #9 er valgfri, men anbefalt: GitHub Pages vil da automatisk redirecte `www.glimtsalternative.no` til apex-domenet `glimtsalternative.no`.
+DNS-propagering tar typisk 5-30 minutter, men kan ta opptil et døgn.
 ## TODO / innhold som mangler
 - Bytt ut placeholder-rutene i galleriet med ekte bilder (legg dem i `assets/` og oppdater `<figure class="gallery-item">` i `index.html`).
 - Fyll inn ekte e-post i `index.html` (søk på `post@glimtsalternative.no`).
