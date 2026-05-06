@@ -686,6 +686,20 @@ a:hover {
   line-height: 1.5;
 }
 
+.contact-form .form-status {
+  margin: 0.25rem 0 0;
+  font-size: 0.9rem;
+  color: var(--yellow);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.contact-form .form-status.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* ---------- Footer ---------- */
 .site-footer {
   background: var(--black-2);

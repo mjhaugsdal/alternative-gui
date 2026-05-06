@@ -151,6 +151,16 @@ document.addEventListener("keydown", (e) => {
 // ---------- Kontaktskjema: åpne brukerens e-postklient med mailto ----------
 const contactForm = document.getElementById("contact-form");
 if (contactForm) {
+  // Lager (eller finner) en statuslinje under skjemaet
+  let status = contactForm.querySelector(".form-status");
+  if (!status) {
+    status = document.createElement("p");
+    status.className = "form-status muted";
+    status.setAttribute("role", "status");
+    status.setAttribute("aria-live", "polite");
+    contactForm.appendChild(status);
+  }
+
   contactForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const data = new FormData(contactForm);
@@ -159,18 +169,31 @@ if (contactForm) {
     const melding = (data.get("melding") || "").toString().trim();
 
     if (!navn || !epost || !melding) {
-      contactForm.reportValidity();
+      // Slå på native validering for tooltips, så vis en kort beskjed
+      contactForm.querySelectorAll("[required]").forEach((el) => {
+        if (!el.value.trim()) el.reportValidity();
+      });
       return;
     }
 
     const subject = `Henvendelse fra ${navn}`;
     const body = `${melding}\n\n— ${navn}\n${epost}`;
-    const url =
+    const mailto =
       "mailto:post@glimtsalternative.no" +
       `?subject=${encodeURIComponent(subject)}` +
       `&body=${encodeURIComponent(body)}`;
 
-    // Åpne e-postklienten. window.location er mest pålitelig på tvers av nettlesere.
-    window.location.href = url;
+    // Åpne via et midlertidig anker-klikk – det mest robuste på tvers av nettlesere
+    const a = document.createElement("a");
+    a.href = mailto;
+    a.rel = "noopener";
+    a.style.display = "none";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+    status.textContent =
+      "E-postklienten din skal nå åpnes. Skjer ingenting? Send direkte til post@glimtsalternative.no.";
+    status.classList.add("visible");
   });
 }
