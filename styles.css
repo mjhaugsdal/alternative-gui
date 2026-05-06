@@ -680,6 +680,12 @@ a:hover {
   justify-self: start;
 }
 
+.contact-form .form-note {
+  margin: 0.25rem 0 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
 /* ---------- Footer ---------- */
 .site-footer {
   background: var(--black-2);

@@ -148,3 +148,29 @@ document.addEventListener("keydown", (e) => {
   else if (e.key === "ArrowRight") navigate(1);
 });
 
+// ---------- Kontaktskjema: åpne brukerens e-postklient med mailto ----------
+const contactForm = document.getElementById("contact-form");
+if (contactForm) {
+  contactForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const data = new FormData(contactForm);
+    const navn = (data.get("navn") || "").toString().trim();
+    const epost = (data.get("epost") || "").toString().trim();
+    const melding = (data.get("melding") || "").toString().trim();
+
+    if (!navn || !epost || !melding) {
+      contactForm.reportValidity();
+      return;
+    }
+
+    const subject = `Henvendelse fra ${navn}`;
+    const body = `${melding}\n\n— ${navn}\n${epost}`;
+    const url =
+      "mailto:post@glimtsalternative.no" +
+      `?subject=${encodeURIComponent(subject)}` +
+      `&body=${encodeURIComponent(body)}`;
+
+    // Åpne e-postklienten. window.location er mest pålitelig på tvers av nettlesere.
+    window.location.href = url;
+  });
+}

@@ -324,9 +324,8 @@
           </div>
           <form
             class="contact-form"
-            action="mailto:post@glimtsalternative.no"
-            method="post"
-            enctype="text/plain"
+            id="contact-form"
+            novalidate
           >
             <label>
               Navn
@@ -340,7 +339,12 @@
               Melding
               <textarea name="melding" rows="5" required></textarea>
             </label>
-            <button type="submit" class="btn btn-primary">Send</button>
+            <button type="submit" class="btn btn-primary">Send via e-post</button>
+            <p class="form-note muted">
+              Knappen åpner e-postklienten din med meldingen ferdig utfylt.
+              Fungerer ikke det? Send direkte til
+              <a href="mailto:post@glimtsalternative.no">post@glimtsalternative.no</a>.
+            </p>
           </form>
         </div>
       </section>
