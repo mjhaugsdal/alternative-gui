@@ -294,69 +294,47 @@
       </section>
 
       <section id="kontakt" class="section section-alt">
-        <div class="container contact-grid">
-          <div>
-            <h2>Kontakt</h2>
-            <p class="lead">
-              Har du spørsmål, vil bli medlem eller bare slå av en prat? Vi
-              hører gjerne fra deg.
-            </p>
-            <ul class="contact-list">
-              <li>
-                <strong>E-post:</strong>
-                <a href="mailto:post@glimtsalternative.no"
-                  >post@glimtsalternative.no</a
-                >
-              </li>
-              <li>
-                <strong>Sted:</strong>
-                Buskerud, Norge
-              </li>
-            </ul>
-            <div class="socials">
-              <a
-                href="https://www.facebook.com/share/1Kk3PcvBK7/"
-                target="_blank"
-                rel="noopener"
-                aria-label="Facebook"
-                >Facebook</a
-              >
-              <a
-                href="https://www.instagram.com/"
-                target="_blank"
-                rel="noopener"
-                aria-label="Instagram"
-                >Instagram</a
-              >
-            </div>
-          </div>
-          <form
-            class="contact-form"
-            id="contact-form"
-            action="https://formsubmit.co/ajax/post@glimtsalternative.no"
-            method="POST"
-          >
-            <!-- Honeypot mot bots -->
-            <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none" />
+        <div class="container">
+          <h2>Kontakt</h2>
+          <p class="lead">
+            Har du spørsmål, vil bli medlem eller bare slå av en prat? Vi
+            hører gjerne fra deg.
+          </p>
 
-            <label>
-              Navn
-              <input type="text" name="navn" required />
-            </label>
-            <label>
-              E-post
-              <input type="email" name="epost" required />
-            </label>
-            <label>
-              Melding
-              <textarea name="melding" rows="5" required></textarea>
-            </label>
-            <button type="submit" class="btn btn-primary">Send melding</button>
-            <p class="form-note muted">
-              Vi svarer så raskt vi kan. Foretrekker du e-post direkte?
-              <a href="mailto:post@glimtsalternative.no">post@glimtsalternative.no</a>
-            </p>
-          </form>
+          <div class="contact-card">
+            <div class="contact-card-info">
+              <p class="contact-email">
+                <span class="muted">E-post</span>
+                <a href="mailto:post@glimtsalternative.no">post@glimtsalternative.no</a>
+              </p>
+              <p class="muted contact-location">
+                <span>Sted:</span> Buskerud, Norge
+              </p>
+            </div>
+            <a
+              class="btn btn-primary contact-cta"
+              href="mailto:post@glimtsalternative.no?subject=Henvendelse%20fra%20glimtsalternative.no"
+            >
+              Send oss en e-post
+            </a>
+          </div>
+
+          <div class="socials">
+            <a
+              href="https://www.facebook.com/share/1Kk3PcvBK7/"
+              target="_blank"
+              rel="noopener"
+              aria-label="Facebook"
+              >Facebook</a
+            >
+            <a
+              href="https://www.instagram.com/"
+              target="_blank"
+              rel="noopener"
+              aria-label="Instagram"
+              >Instagram</a
+            >
+          </div>
         </div>
       </section>
     </main>
