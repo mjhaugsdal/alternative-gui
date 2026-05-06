@@ -700,6 +700,14 @@ a:hover {
   transform: translateY(0);
 }
 
+.contact-form .form-status.ok {
+  color: #6dd58c;
+}
+
+.contact-form .form-status.error {
+  color: #ff8a8a;
+}
+
 /* ---------- Footer ---------- */
 .site-footer {
   background: var(--black-2);

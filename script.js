@@ -148,19 +148,76 @@ document.addEventListener("keydown", (e) => {
   else if (e.key === "ArrowRight") navigate(1);
 });
 
-// ---------- Kontaktskjema: vis "takk"-melding ved retur etter sending ----------
-// Skjemaet POSTer direkte til Formsubmit. Etter sending redirectes brukeren tilbake
-// med ?sendt=1 i URL-en – da vises en kvittering.
-const params = new URLSearchParams(window.location.search);
-if (params.get("sendt") === "1") {
-  const form = document.getElementById("contact-form");
-  if (form) {
-    const status = document.createElement("p");
-    status.className = "form-status visible";
-    status.setAttribute("role", "status");
-    status.textContent =
-      "Takk! Meldingen din er sendt – vi tar kontakt så snart som mulig.";
-    form.prepend(status);
-    form.reset();
+// ---------- Kontaktskjema: AJAX-sending via Formsubmit ----------
+const contactForm = document.getElementById("contact-form");
+if (contactForm) {
+  // Statusfelt under skjemaet
+  const status = document.createElement("p");
+  status.className = "form-status";
+  status.setAttribute("role", "status");
+  status.setAttribute("aria-live", "polite");
+  contactForm.appendChild(status);
+
+  const submitBtn = contactForm.querySelector("button[type='submit']");
+  const originalBtnText = submitBtn ? submitBtn.textContent : "Send";
+
+  function setStatus(text, kind) {
+    status.textContent = text;
+    status.classList.remove("ok", "error");
+    if (kind) status.classList.add(kind);
+    status.classList.add("visible");
   }
+
+  contactForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    if (!contactForm.checkValidity()) {
+      contactForm.reportValidity();
+      return;
+    }
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Sender …";
+    }
+    setStatus("Sender meldingen …", null);
+
+    const data = new FormData(contactForm);
+    const payload = {};
+    data.forEach((v, k) => (payload[k] = v));
+    payload._subject = `Ny henvendelse fra ${payload.navn || "glimtsalternative.no"}`;
+
+    try {
+      const res = await fetch(contactForm.action, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (res.ok && (json.success === "true" || json.success === true)) {
+        setStatus(
+          "Takk! Meldingen din er sendt – vi tar kontakt så snart som mulig.",
+          "ok"
+        );
+        contactForm.reset();
+      } else {
+        const msg = json.message || `Status ${res.status}`;
+        throw new Error(msg);
+      }
+    } catch (err) {
+      console.error("Skjema-feil:", err);
+      setStatus(
+        "Kunne ikke sende meldingen akkurat nå. Prøv igjen senere, eller send e-post direkte til post@glimtsalternative.no.",
+        "error"
+      );
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+      }
+    }
+  });
 }
