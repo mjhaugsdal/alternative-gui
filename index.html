@@ -333,8 +333,17 @@
           <form
             class="contact-form"
             id="contact-form"
-            novalidate
+            action="https://formsubmit.co/post@glimtsalternative.no"
+            method="POST"
           >
+            <!-- Formsubmit-konfigurasjon (skjult) -->
+            <input type="hidden" name="_subject" value="Ny henvendelse fra glimtsalternative.no" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_captcha" value="true" />
+            <input type="hidden" name="_next" value="https://glimtsalternative.no/?sendt=1#kontakt" />
+            <!-- Honeypot mot bots -->
+            <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none" />
+
             <label>
               Navn
               <input type="text" name="navn" required />
@@ -347,11 +356,10 @@
               Melding
               <textarea name="melding" rows="5" required></textarea>
             </label>
-            <button type="submit" class="btn btn-primary">Send via e-post</button>
+            <button type="submit" class="btn btn-primary">Send melding</button>
             <p class="form-note muted">
-              Knappen åpner e-postklienten din med meldingen ferdig utfylt.
-              Fungerer ikke det? Send direkte til
-              <a href="mailto:post@glimtsalternative.no">post@glimtsalternative.no</a>.
+              Vi svarer så raskt vi kan. Foretrekker du e-post direkte?
+              <a href="mailto:post@glimtsalternative.no">post@glimtsalternative.no</a>
             </p>
           </form>
         </div>

@@ -148,52 +148,19 @@ document.addEventListener("keydown", (e) => {
   else if (e.key === "ArrowRight") navigate(1);
 });
 
-// ---------- Kontaktskjema: åpne brukerens e-postklient med mailto ----------
-const contactForm = document.getElementById("contact-form");
-if (contactForm) {
-  // Lager (eller finner) en statuslinje under skjemaet
-  let status = contactForm.querySelector(".form-status");
-  if (!status) {
-    status = document.createElement("p");
-    status.className = "form-status muted";
+// ---------- Kontaktskjema: vis "takk"-melding ved retur etter sending ----------
+// Skjemaet POSTer direkte til Formsubmit. Etter sending redirectes brukeren tilbake
+// med ?sendt=1 i URL-en – da vises en kvittering.
+const params = new URLSearchParams(window.location.search);
+if (params.get("sendt") === "1") {
+  const form = document.getElementById("contact-form");
+  if (form) {
+    const status = document.createElement("p");
+    status.className = "form-status visible";
     status.setAttribute("role", "status");
-    status.setAttribute("aria-live", "polite");
-    contactForm.appendChild(status);
-  }
-
-  contactForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const data = new FormData(contactForm);
-    const navn = (data.get("navn") || "").toString().trim();
-    const epost = (data.get("epost") || "").toString().trim();
-    const melding = (data.get("melding") || "").toString().trim();
-
-    if (!navn || !epost || !melding) {
-      // Slå på native validering for tooltips, så vis en kort beskjed
-      contactForm.querySelectorAll("[required]").forEach((el) => {
-        if (!el.value.trim()) el.reportValidity();
-      });
-      return;
-    }
-
-    const subject = `Henvendelse fra ${navn}`;
-    const body = `${melding}\n\n— ${navn}\n${epost}`;
-    const mailto =
-      "mailto:post@glimtsalternative.no" +
-      `?subject=${encodeURIComponent(subject)}` +
-      `&body=${encodeURIComponent(body)}`;
-
-    // Åpne via et midlertidig anker-klikk – det mest robuste på tvers av nettlesere
-    const a = document.createElement("a");
-    a.href = mailto;
-    a.rel = "noopener";
-    a.style.display = "none";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-
     status.textContent =
-      "E-postklienten din skal nå åpnes. Skjer ingenting? Send direkte til post@glimtsalternative.no.";
-    status.classList.add("visible");
-  });
+      "Takk! Meldingen din er sendt – vi tar kontakt så snart som mulig.";
+    form.prepend(status);
+    form.reset();
+  }
 }
