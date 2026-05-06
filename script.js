@@ -61,24 +61,34 @@ const revealObserver = new IntersectionObserver(
 
 revealEls.forEach((el) => revealObserver.observe(el));
 
-// ---------- Lightbox for galleri ----------
+// ---------- Lightbox for galleri og butikk ----------
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = lightbox.querySelector(".lightbox-image");
 const btnClose = lightbox.querySelector(".lightbox-close");
 const btnPrev = lightbox.querySelector(".lightbox-prev");
 const btnNext = lightbox.querySelector(".lightbox-next");
-const galleryImages = Array.from(
-  document.querySelectorAll(".gallery .gallery-item img")
-);
+
+// Bygg uavhengige bildegrupper – galleri og butikk navigeres separat
+const groups = {
+  gallery: Array.from(document.querySelectorAll(".gallery .gallery-item img")),
+  merch: Array.from(document.querySelectorAll(".merch-grid .product-image img")),
+};
+
+let currentGroup = "gallery";
 let currentIndex = 0;
 let lastFocused = null;
 
-function openLightbox(index) {
+function openLightbox(group, index) {
+  currentGroup = group;
   currentIndex = index;
-  showImage(currentIndex);
+  showImage();
   lastFocused = document.activeElement;
   lightbox.hidden = false;
   document.body.style.overflow = "hidden";
+  // Skjul navigeringsknapper hvis bare ett bilde i gruppa
+  const multi = groups[currentGroup].length > 1;
+  btnPrev.style.display = multi ? "" : "none";
+  btnNext.style.display = multi ? "" : "none";
   btnClose.focus();
 }
 
@@ -88,31 +98,38 @@ function closeLightbox() {
   if (lastFocused) lastFocused.focus();
 }
 
-function showImage(index) {
-  const img = galleryImages[index];
+function showImage() {
+  const img = groups[currentGroup][currentIndex];
   if (!img) return;
   lightboxImg.src = img.currentSrc || img.src;
   lightboxImg.alt = img.alt || "";
 }
 
 function navigate(delta) {
-  currentIndex =
-    (currentIndex + delta + galleryImages.length) % galleryImages.length;
-  showImage(currentIndex);
+  const list = groups[currentGroup];
+  if (!list.length) return;
+  currentIndex = (currentIndex + delta + list.length) % list.length;
+  showImage();
 }
 
-galleryImages.forEach((img, i) => {
-  img.addEventListener("click", () => openLightbox(i));
-  img.setAttribute("tabindex", "0");
-  img.setAttribute("role", "button");
-  img.setAttribute("aria-label", "Åpne bilde i full størrelse");
-  img.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      openLightbox(i);
-    }
+function wireUp(group) {
+  groups[group].forEach((img, i) => {
+    img.classList.add("zoomable");
+    img.setAttribute("tabindex", "0");
+    img.setAttribute("role", "button");
+    img.setAttribute("aria-label", "Åpne bilde i full størrelse");
+    img.addEventListener("click", () => openLightbox(group, i));
+    img.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openLightbox(group, i);
+      }
+    });
   });
-});
+}
+
+wireUp("gallery");
+wireUp("merch");
 
 btnClose.addEventListener("click", closeLightbox);
 btnPrev.addEventListener("click", () => navigate(-1));
