@@ -1,5 +1,5 @@
-# Glimts alternative
-Nettsiden til **Glimts alternative** – en alternativ supporterklubb for fotballklubben Bodø/Glimt.
+# Glimts Alternative
+Nettsiden til **Glimts Alternative** – en alternativ supporterklubb for fotballklubben Bodø/Glimt.
 Live: <https://glimtsalternative.no>
 ## Om prosjektet
 Dette er en enkel, statisk nettside (HTML / CSS / vanilla JS) – ingen byggesteg, ingen rammeverk. Siden serveres via **GitHub Pages** og deployes automatisk gjennom **GitHub Actions** ved push til `main`.
@@ -64,4 +64,4 @@ DNS-propagering tar typisk 5-30 minutter, men kan ta opptil et døgn.
 - Lenke ekte sosiale medier under `#kontakt`.
 - Legg inn ekte produkter under `#butikk` eller koble mot en ekstern butikk.
 ## Lisens
-Innholdet (tekst, logo) tilhører Glimts alternative. Koden er fri å gjenbruke.
+Innholdet (tekst, logo) tilhører Glimts Alternative. Koden er fri å gjenbruke.
