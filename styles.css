@@ -409,6 +409,71 @@ a:hover {
   margin-top: 0.25rem;
 }
 
+/* ---------- Vipps-callout ---------- */
+.vipps {
+  margin-top: 2rem;
+  background: linear-gradient(
+      135deg,
+      rgba(255, 91, 36, 0.14),
+      rgba(255, 91, 36, 0.04)
+    ),
+    var(--black-3);
+  border: 1px solid rgba(255, 91, 36, 0.45);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  box-shadow: 0 12px 32px rgba(255, 91, 36, 0.1);
+}
+
+.vipps-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.75rem;
+  justify-content: space-between;
+}
+
+.vipps-text {
+  flex: 1 1 320px;
+  max-width: 60ch;
+}
+
+.vipps-text h3 {
+  margin: 0 0 0.5rem;
+  color: #ff5b24;
+  font-size: 1.35rem;
+}
+
+.vipps-text p {
+  margin: 0 0 1.25rem;
+  color: var(--text);
+}
+
+.vipps-qr {
+  flex: 0 0 auto;
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 0.75rem;
+  line-height: 0;
+}
+
+.vipps-qr img {
+  display: block;
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+}
+
+@media (max-width: 560px) {
+  .vipps-inner {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .vipps-qr {
+    margin: 0 auto;
+  }
+}
+
 .badge {
   display: inline-block;
   margin-top: 0.75rem;
